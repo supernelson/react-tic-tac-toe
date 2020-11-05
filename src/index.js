@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+// what indicates that you should just use a function instead of a class?
 function Square(props) {
     return (
     <button 
@@ -12,10 +13,12 @@ function Square(props) {
     </button>
     );
 }
-  
+
+// is usage of <Square> the React piece?
 class Board extends React.Component {
 
     renderSquare(i) {
+        // this inside Square is function Square but that makes it global?
         return (<Square 
             value={this.props.squares[i]} 
             onClick = { () => this.props.onClick(i) }
@@ -46,7 +49,8 @@ class Board extends React.Component {
         );
     }
   }
-  
+
+
 class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -65,7 +69,7 @@ class Game extends React.Component {
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
-        } 
+        }
         
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
@@ -84,6 +88,7 @@ class Game extends React.Component {
         })
     }
 
+    // why put these constants under render? shouldn't they live outside it?
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -124,6 +129,7 @@ class Game extends React.Component {
     }
 }
 
+// why doesn't this function live inside Game?
 function calculateWinner(squares) {
     const lines = [
       [0, 1, 2],
